@@ -1,0 +1,68 @@
+import tkinter as tk
+from tkinter import messagebox
+
+# Function to perform arithmetic operations
+def calculate(operation):
+    try:
+        num1 = float(entry1.get())
+        num2 = float(entry2.get())
+        if operation == "+":
+            result = num1 + num2
+        elif operation == "-":
+            result = num1 - num2
+        elif operation == "×":
+            result = num1 * num2
+        elif operation == "÷":
+            if num2 == 0:
+                raise ZeroDivisionError("Division by zero is not allowed.")
+            result = num1 / num2
+        result_label.config(text=f"Result: {result:.2f}", fg="green")
+    except ValueError:
+        messagebox.showerror("Input Error", "Please enter valid numbers.")
+    except ZeroDivisionError as e:
+        messagebox.showerror("Math Error", str(e))
+        result_label.config(text="Result: Error", fg="red")
+
+# GUI setup
+root = tk.Tk()
+root.title("Stylish Calculator")
+root.geometry("450x500")
+root.configure(bg="#eaf6ff")  # Light background for an elegant look
+
+# Title label
+title_label = tk.Label(root, text="Arithmetic Calculator", font=("Arial", 20, "bold"), bg="#eaf6ff", fg="#003366")
+title_label.pack(pady=20)
+
+# Input fields with labels
+frame_inputs = tk.Frame(root, bg="#eaf6ff")
+frame_inputs.pack(pady=10)
+
+tk.Label(frame_inputs, text="First Number:", font=("Arial", 14), bg="#eaf6ff").grid(row=0, column=0, padx=10, pady=5, sticky="e")
+entry1 = tk.Entry(frame_inputs, font=("Arial", 14), width=15, bd=2, relief="groove")
+entry1.grid(row=0, column=1, pady=5)
+
+tk.Label(frame_inputs, text="Second Number:", font=("Arial", 14), bg="#eaf6ff").grid(row=1, column=0, padx=10, pady=5, sticky="e")
+entry2 = tk.Entry(frame_inputs, font=("Arial", 14), width=15, bd=2, relief="groove")
+entry2.grid(row=1, column=1, pady=5)
+
+# Buttons for operations with symbols
+frame_buttons = tk.Frame(root, bg="#eaf6ff")
+frame_buttons.pack(pady=20)
+
+btn_style = {"font": ("Arial", 14, "bold"), "bg": "#4da6ff", "fg": "#ffffff", "width": 5, "relief": "raised"}
+tk.Button(frame_buttons, text="+", command=lambda: calculate("+"), **btn_style).grid(row=0, column=0, padx=10, pady=5)
+tk.Button(frame_buttons, text="-", command=lambda: calculate("-"), **btn_style).grid(row=0, column=1, padx=10, pady=5)
+tk.Button(frame_buttons, text="×", command=lambda: calculate("×"), **btn_style).grid(row=1, column=0, padx=10, pady=5)
+tk.Button(frame_buttons, text="÷", command=lambda: calculate("÷"), **btn_style).grid(row=1, column=1, padx=10, pady=5)
+
+# Result display
+result_label = tk.Label(root, text="Result: ", font=("Arial", 16, "bold"), bg="#eaf6ff", fg="#003366")
+result_label.pack(pady=20)
+
+# Footer
+footer_label = tk.Label(root, text="Made with ❤️ Harshal Pawar", font=("Arial", 10), bg="#eaf6ff", fg="#666666")
+footer_label.pack(pady=20)
+
+# Run the application
+root.mainloop()
+
